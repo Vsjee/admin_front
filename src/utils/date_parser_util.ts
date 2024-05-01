@@ -1,5 +1,9 @@
 export const date_parser_util = (date: number): string => {
-  return date.toString().length === 10
-    ? new Date(date * 1000).toLocaleDateString()
-    : new Date(date).toLocaleDateString();
+  if (date.toString().length === 10) {
+    return new Date(date * 1000).toLocaleDateString();
+  } else if (date.toString().length === 13) {
+    return new Date(date).toLocaleDateString();
+  } else {
+    return 'No tiene fecha valida';
+  }
 };
