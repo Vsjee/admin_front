@@ -23,7 +23,7 @@ function DashboardRootLayout() {
         </div>
 
         {/* Page content */}
-        <div className="drawer-content pt-10">
+        <div className="drawer-content lg:pt-0 pt-10">
           <Routes>
             {/* DASHBOARD */}
             <Route path="" element={<DashboardHome />} />
