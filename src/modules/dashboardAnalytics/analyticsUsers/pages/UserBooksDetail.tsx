@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import UserBooksTable from '../components/UserBooksTable';
 import booksService from '../../../../core/services/books_types';
 import { IBook } from '../../../../core/types/books_types';
+import UserBooksHeader from '../components/UserBooksHeader';
 
 function UserBooksDetail() {
   const { id } = useParams();
@@ -25,6 +26,7 @@ function UserBooksDetail() {
 
   return (
     <>
+      <UserBooksHeader books={books} customerId={id!} />
       <UserBooksTable books={books} />
     </>
   );
