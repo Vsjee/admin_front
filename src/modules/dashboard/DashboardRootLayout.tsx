@@ -4,10 +4,11 @@ import { Navbar } from '../../components';
 import Sidebar from './components/Sidebar';
 import DashboardHome from './DashboardHome';
 import Profile from '../adminProfile/AdminProfile';
-import AnalyticsUsers from '../dashboardGraphs/analyticsUsers/AnalyticsUsers';
-import AnalyticsKids from '../dashboardGraphs/analyticsKids/AnalyticsKids';
-import AnalitycsBooks from '../dashboardGraphs/analyticsBooks/AnalitycsBooks';
+
 import { publicRoutes } from '../../core/models';
+import AnalitycsBooks from '../dashboardAnalytics/analyticsBooks/AnalitycsBooks';
+import AnalyticsKids from '../dashboardAnalytics/analyticsKids/AnalyticsKids';
+import AnalyticsUsers from '../dashboardAnalytics/analyticsUsers/AnalyticsUsers';
 
 function DashboardRootLayout() {
   return (
