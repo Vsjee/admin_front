@@ -4,6 +4,7 @@ import { Kid } from '../../../../core/types/kids_types';
 import kidsService from '../../../../core/services/kids_service';
 import { useParams } from 'react-router-dom';
 import UserKidsPieChart from '../charts/UserKidsPieChart';
+import UserKidsSimpleBarChart from '../charts/UserKidsSimpleBarChart';
 
 function UserKidsDetail() {
   const { id } = useParams();
@@ -27,7 +28,12 @@ function UserKidsDetail() {
   return (
     <>
       <UserKidsTable kids={kids} />
-      <UserKidsPieChart kids={kids} />
+      {kids.length !== 0 ? (
+        <div className="flex justify-center pt-5">
+          <UserKidsPieChart kids={kids} />
+          <UserKidsSimpleBarChart kids={kids} />
+        </div>
+      ) : null}
     </>
   );
 }
