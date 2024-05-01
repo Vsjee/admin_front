@@ -3,11 +3,11 @@ import { Routes, Route } from 'react-router-dom';
 import { Navbar } from '../../components';
 import Sidebar from './components/Sidebar';
 import DashboardHome from './DashboardHome';
-import { publicRoutes } from '../../models';
 import Profile from '../adminProfile/AdminProfile';
 import AnalyticsUsers from '../dashboardGraphs/analyticsUsers/AnalyticsUsers';
 import AnalyticsKids from '../dashboardGraphs/analyticsKids/AnalyticsKids';
 import AnalitycsBooks from '../dashboardGraphs/analyticsBooks/AnalitycsBooks';
+import { publicRoutes } from '../../core/models';
 
 function DashboardRootLayout() {
   return (

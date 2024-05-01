@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { publicRoutes } from '../../models';
+import { publicRoutes } from '../../core/models';
 
 function Navbar() {
   return (

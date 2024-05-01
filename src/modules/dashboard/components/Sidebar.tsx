@@ -1,5 +1,5 @@
 import { NavLink, useNavigate } from 'react-router-dom';
-import { menuRoutes } from '../../../models';
+import { menuRoutes } from '../../../core/models';
 
 function Sidebar() {
   const history = useNavigate();

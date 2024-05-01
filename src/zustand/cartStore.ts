@@ -1,6 +1,6 @@
 import { persist } from 'zustand/middleware';
 import { create } from 'zustand';
-import { IProduct } from '../interfaces';
+import { IProduct } from '../core/interfaces';
 
 interface State {
   cart: IProduct[];
@@ -26,7 +26,9 @@ export const useCartStore = create(
 
         if (cartItem) {
           const updatedCart = cart.map((item) =>
-            item.id === product.id ? { ...item, quantity: (item.quantity as number) + 1 } : item
+            item.id === product.id
+              ? { ...item, quantity: (item.quantity as number) + 1 }
+              : item
           );
           set(() => ({
             cart: updatedCart,

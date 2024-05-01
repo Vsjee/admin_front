@@ -2,8 +2,8 @@ import 'animate.css';
 import { Route } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import { NotFoundRoute } from './utils';
-import { publicRoutes } from './models';
 import DashboardRootLayout from './modules/dashboard/DashboardRootLayout';
+import { publicRoutes } from './core/models';
 
 const Login = lazy(() => import('./modules/login/Login'));
 

@@ -1,4 +1,4 @@
-import { IProduct } from '../interfaces';
+import { IProduct } from '../core/interfaces';
 
 export const getCartTotalPrice = (cart: IProduct[]): string => {
   let total = 0;
