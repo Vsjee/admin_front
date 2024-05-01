@@ -5,11 +5,15 @@ import { date_parser_util } from '../../../../utils/date_parser_util';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+
 interface Props {
   customers: Customer[];
 }
 
 function UsersTable({ customers }: Props) {
+  const history = useNavigate();
+
   const [currentPage, setCurrentPage] = useState(1);
   const customersPerPage = 10;
   const indexOfLastCustomer = currentPage * customersPerPage;
@@ -33,6 +37,10 @@ function UsersTable({ customers }: Props) {
       toastId: 'copyToast',
     });
   }, []);
+
+  const customerDetailsNav = (customerId: string) => {
+    history(`/dashboard/analytics_users/${customerId}`);
+  };
 
   return (
     <>
@@ -124,7 +132,9 @@ function UsersTable({ customers }: Props) {
                   </div>
                 </td>
                 <th>
-                  <button className="btn btn-outline btn-primary btn-xs">
+                  <button
+                    className="btn btn-outline btn-primary btn-xs"
+                    onClick={() => customerDetailsNav(customer._id)}>
                     detalle
                   </button>
                 </th>
