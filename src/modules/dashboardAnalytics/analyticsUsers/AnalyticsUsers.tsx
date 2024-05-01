@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Customer } from '../../../core/types/customers_types';
 import customersService from '../../../core/services/customers_service';
 import UsersTable from './components/UsersTable';
+import AnalyticsUsersHeader from './AnalyticsUsersHeader';
 
 function AnalyticsUsers() {
   const [customers, setCustomers] = useState<Customer[]>([]);
@@ -22,9 +23,10 @@ function AnalyticsUsers() {
   }, []);
 
   return (
-    <div>
+    <>
+      <AnalyticsUsersHeader customers={customers} />
       <UsersTable customers={customers} />
-    </div>
+    </>
   );
 }
 
