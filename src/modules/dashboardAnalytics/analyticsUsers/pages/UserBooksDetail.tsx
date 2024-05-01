@@ -4,6 +4,7 @@ import UserBooksTable from '../components/UserBooksTable';
 import booksService from '../../../../core/services/books_types';
 import { IBook } from '../../../../core/types/books_types';
 import UserBooksHeader from '../components/UserBooksHeader';
+import UserBooksPieChart from '../charts/UserBooksPieChart';
 
 function UserBooksDetail() {
   const { id } = useParams();
@@ -28,6 +29,9 @@ function UserBooksDetail() {
     <>
       <UserBooksHeader books={books} customerId={id!} />
       <UserBooksTable books={books} />
+      <div className="flex justify-center pt-5">
+        <UserBooksPieChart books={books} />
+      </div>
     </>
   );
 }
