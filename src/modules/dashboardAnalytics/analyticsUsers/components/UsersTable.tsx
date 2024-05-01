@@ -161,8 +161,8 @@ function UsersTable({ customers }: Props) {
               </tr>
             ))}
           </tbody>
-          {/* foot */}
         </table>
+        {/* foot */}
         <div className="join w-full flex justify-center pt-2">
           <button
             className="join-item btn"
