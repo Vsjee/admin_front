@@ -9,6 +9,27 @@ interface Props {
 function UserKidsPieChart({ kids }: Props) {
   const chartRef = useRef(null);
 
+  const calculateGendersPercentage = (kids: Kid[]) => {
+    let maleCount = 0;
+
+    let femaleCount = 0;
+
+    kids.forEach((kid) =>
+      kid.gender === 'male' ? maleCount++ : femaleCount++
+    );
+
+    return [
+      {
+        value: maleCount,
+        name: 'Masculino',
+      },
+      {
+        value: femaleCount,
+        name: 'Femenino',
+      },
+    ];
+  };
+
   useEffect(() => {
     const myChart = echarts.init(chartRef.current);
 
@@ -50,10 +71,7 @@ function UserKidsPieChart({ kids }: Props) {
           labelLine: {
             show: false,
           },
-          data: kids.map((kid) => ({
-            value: 1,
-            name: kid.gender === 'male' ? 'Masculino' : 'Femenino',
-          })),
+          data: calculateGendersPercentage(kids),
         },
       ],
     };
@@ -63,9 +81,9 @@ function UserKidsPieChart({ kids }: Props) {
     return () => {
       myChart.dispose();
     };
-  }, []);
+  }, [kids]);
 
-  return <div ref={chartRef} style={{ width: '600px', height: '400px' }}></div>;
+  return <div ref={chartRef} style={{ width: '500px', height: '400px' }}></div>;
 }
 
 export default UserKidsPieChart;
