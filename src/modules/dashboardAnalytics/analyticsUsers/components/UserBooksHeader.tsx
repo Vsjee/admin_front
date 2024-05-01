@@ -21,6 +21,7 @@ function UserBooksHeader({ books, customerId }: Props) {
             {customerId}
           </span>
         </a>
+        <a className="text-xl pl-2"> | Total {books.length} </a>
       </div>
       <div className="flex-none">
         <button className="btn  btn-ghost">

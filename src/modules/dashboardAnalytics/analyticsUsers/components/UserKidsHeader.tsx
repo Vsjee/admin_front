@@ -20,7 +20,8 @@ function UserKidsHeader({ kids, customerId }: Props) {
           <span className="badge badge-outline badge-primary">
             {customerId}
           </span>
-        </a>
+        </a>{' '}
+        <a className="text-xl pl-2"> | Total {kids.length} </a>
       </div>
       <div className="flex-none">
         <button className="btn  btn-ghost">
