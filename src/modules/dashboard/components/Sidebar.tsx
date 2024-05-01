@@ -1,4 +1,5 @@
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { menuRoutes } from '../../../models';
 
 function Sidebar() {
   const history = useNavigate();
@@ -15,6 +16,7 @@ function Sidebar() {
         className="drawer-overlay"></label>
       <div className="p-4 w-80 min-h-full bg-base-200 text-base-content flex flex-col justify-between">
         <div>
+          {/* close drawer btn */}
           <div className={'flex justify-end lg:hidden'}>
             <label htmlFor="my-drawer-2" className="cursor-pointer">
               <svg
@@ -32,14 +34,24 @@ function Sidebar() {
               </svg>
             </label>
           </div>
+
+          {/* menu list items */}
           <ul className="menu">
-            <li>
-              <label htmlFor="my-drawer-2" className="cursor-pointer">
-                Home
-              </label>
-            </li>
+            {menuRoutes.map((route, i) => {
+              return (
+                <li key={i}>
+                  <NavLink to={route.route} className="btn btn-ghost">
+                    <label htmlFor="my-drawer-2" className="cursor-pointer">
+                      {route.text}
+                    </label>
+                  </NavLink>
+                </li>
+              );
+            })}
           </ul>
         </div>
+
+        {/* logout btn */}
         <div className="menu place-content-center">
           <li>
             <button

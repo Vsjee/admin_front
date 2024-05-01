@@ -6,7 +6,6 @@ import { publicRoutes } from './models';
 import DashboardRootLayout from './modules/dashboard/DashboardRootLayout';
 
 const Login = lazy(() => import('./modules/login/Login'));
-const DashboardHome = lazy(() => import('./modules/dashboard/DashboardHome'));
 
 function App() {
   return (
@@ -17,11 +16,7 @@ function App() {
 
           <Route
             path={publicRoutes.DASHBOARD_HOME}
-            element={
-              <DashboardRootLayout>
-                <DashboardHome />
-              </DashboardRootLayout>
-            }
+            element={<DashboardRootLayout />}
           />
         </NotFoundRoute>
       </Suspense>

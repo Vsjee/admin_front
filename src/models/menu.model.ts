@@ -3,19 +3,23 @@ import { publicRoutes } from './routes';
 
 export const menuRoutes: IMenuRoutes[] = [
   {
-    route: `${publicRoutes.SERVICES}`,
-    text: 'Servicios',
+    route: `${publicRoutes.ADMIN_PROFILE}`,
+    text: 'Perfil Admin',
   },
   {
-    route: `${publicRoutes.TECNOLOGIES}`,
-    text: 'Tecnologías',
+    route: `${publicRoutes.DASHBOARD}`,
+    text: 'Dashboard',
   },
   {
-    route: `${publicRoutes.CONTACT}`,
-    text: 'Contacto',
+    route: `${publicRoutes.ANALYTICS_USERS}`,
+    text: 'Analitica Usuarios',
   },
   {
-    route: `${publicRoutes.ABOUT}`,
-    text: 'Nosotros',
+    route: `${publicRoutes.ANALYTICS_KIDS}`,
+    text: 'Analitica Niños',
+  },
+  {
+    route: `${publicRoutes.ANALYTICS_BOOKS}`,
+    text: 'Analitica Libros',
   },
 ];
