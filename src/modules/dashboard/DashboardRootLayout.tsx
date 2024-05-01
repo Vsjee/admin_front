@@ -1,4 +1,5 @@
 import { Footer, Navbar } from '../../components';
+import Sidebar from './components/Sidebar';
 
 interface Props {
   children: JSX.Element | JSX.Element[];
@@ -7,9 +8,19 @@ interface Props {
 function DashboardRootLayout({ children }: Props) {
   return (
     <>
-      <Navbar />
-      {children}
-      <Footer />
+      <div className="drawer lg:drawer-open">
+        <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+
+        <div className=" lg:hidden">
+          <Navbar />
+        </div>
+
+        {/* Page content */}
+        <div className="drawer-content">{children}</div>
+
+        {/* Drawer content */}
+        <Sidebar />
+      </div>
     </>
   );
 }
