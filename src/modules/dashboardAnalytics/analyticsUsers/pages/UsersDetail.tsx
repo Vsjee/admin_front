@@ -5,8 +5,12 @@ import { date_parser_util } from '../../../../utils/date_parser_util';
 
 import bumii_reading from '../../../../assets/images/home/bumii_reading.jpg';
 import bumii_with_kid from '../../../../assets/images/home/bumii_with_kid.jpg';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function UsersDetail() {
+  const history = useNavigate();
+  const location = useLocation();
+
   const customer = useCustomerStore((state) => state.customer);
 
   const copyToClipboard = useCallback((text: string) => {
@@ -23,6 +27,11 @@ function UsersDetail() {
       toastId: 'copyToast',
     });
   }, []);
+
+  const navigateToUserDataInfo = (path: string) => {
+    const newPath = location.pathname + '/' + path;
+    history(newPath);
+  };
 
   return (
     <>
@@ -147,7 +156,11 @@ function UsersDetail() {
               <h2 className="card-title">Libros creados por el usuario</h2>
               <p>Visualizacion, edicion y eliminacion de registros</p>
               <div className="card-actions justify-end">
-                <button className="btn btn-primary">Mas informacion</button>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => navigateToUserDataInfo('books')}>
+                  Mas informacion
+                </button>
               </div>
             </div>
           </div>
@@ -167,7 +180,11 @@ function UsersDetail() {
               <h2 className="card-title">Niños creados por el usuario</h2>
               <p>Visualizacion, edicion y eliminacion de registros</p>
               <div className="card-actions justify-end">
-                <button className="btn btn-primary">Mas informacion</button>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => navigateToUserDataInfo('kids')}>
+                  Mas informacion
+                </button>
               </div>
             </div>
           </div>

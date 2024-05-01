@@ -9,6 +9,8 @@ import { publicRoutes } from '../../core/models';
 import AnalyticsKids from '../dashboardAnalytics/analyticsKids/AnalyticsKids';
 import AnalyticsUsers from '../dashboardAnalytics/analyticsUsers/AnalyticsUsers';
 import UsersDetail from '../dashboardAnalytics/analyticsUsers/pages/UsersDetail';
+import UserKidsDetail from '../dashboardAnalytics/analyticsUsers/pages/UserKidsDetail';
+import UserBooksDetail from '../dashboardAnalytics/analyticsUsers/pages/UserBooksDetail';
 
 function DashboardRootLayout() {
   return (
@@ -23,7 +25,10 @@ function DashboardRootLayout() {
         {/* Page content */}
         <div className="drawer-content pt-10">
           <Routes>
+            {/* DASHBOARD */}
             <Route path="" element={<DashboardHome />} />
+
+            {/* USERS */}
             <Route
               path={publicRoutes.ANALYTICS_USERS}
               element={<AnalyticsUsers />}></Route>
@@ -32,9 +37,21 @@ function DashboardRootLayout() {
               element={<UsersDetail />}
             />
             <Route
+              path={publicRoutes.ANALYTICS_USERS_KIDS_DETAILS}
+              element={<UserKidsDetail />}
+            />
+            <Route
+              path={publicRoutes.ANALYTICS_USERS_BOOKS_DETAILS}
+              element={<UserBooksDetail />}
+            />
+
+            {/* KIDS */}
+            <Route
               path={publicRoutes.ANALYTICS_KIDS}
               element={<AnalyticsKids />}
             />
+
+            {/* PROFILE */}
             <Route path={publicRoutes.ADMIN_PROFILE} element={<Profile />} />
           </Routes>
         </div>
