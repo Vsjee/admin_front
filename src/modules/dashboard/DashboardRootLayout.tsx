@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Outlet } from 'react-router-dom';
 
 import { Navbar } from '../../components';
 import Sidebar from './components/Sidebar';
@@ -9,6 +9,7 @@ import { publicRoutes } from '../../core/models';
 import AnalitycsBooks from '../dashboardAnalytics/analyticsBooks/AnalitycsBooks';
 import AnalyticsKids from '../dashboardAnalytics/analyticsKids/AnalyticsKids';
 import AnalyticsUsers from '../dashboardAnalytics/analyticsUsers/AnalyticsUsers';
+import UsersDetail from '../dashboardAnalytics/analyticsUsers/pages/UsersDetail';
 
 function DashboardRootLayout() {
   return (
@@ -26,7 +27,10 @@ function DashboardRootLayout() {
             <Route path="" element={<DashboardHome />} />
             <Route
               path={publicRoutes.ANALYTICS_USERS}
-              element={<AnalyticsUsers />}
+              element={<AnalyticsUsers />}></Route>
+            <Route
+              path={publicRoutes.ANALYTICS_USERS_DETAILS}
+              element={<UsersDetail />}
             />
             <Route
               path={publicRoutes.ANALYTICS_KIDS}
