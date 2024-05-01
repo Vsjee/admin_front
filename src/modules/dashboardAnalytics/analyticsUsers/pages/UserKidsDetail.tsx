@@ -3,6 +3,7 @@ import UserKidsTable from '../components/UserKidsTable';
 import { Kid } from '../../../../core/types/kids_types';
 import kidsService from '../../../../core/services/kids_service';
 import { useParams } from 'react-router-dom';
+import UserKidsPieChart from '../charts/UserKidsPieChart';
 
 function UserKidsDetail() {
   const { id } = useParams();
@@ -26,6 +27,7 @@ function UserKidsDetail() {
   return (
     <>
       <UserKidsTable kids={kids} />
+      <UserKidsPieChart kids={kids} />
     </>
   );
 }
