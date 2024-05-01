@@ -9,7 +9,7 @@ function Sidebar() {
   };
 
   return (
-    <div className="drawer-side" style={{ position: 'fixed' }}>
+    <div className="drawer-side">
       <label
         htmlFor="my-drawer-2"
         aria-label="close sidebar"
