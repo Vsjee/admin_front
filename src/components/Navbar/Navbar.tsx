@@ -10,7 +10,9 @@ function Navbar() {
         </Link>
       </div>
       <div className="block lg:hidden">
-        <label htmlFor="my-drawer-2" className=" drawer-button lg:hidden">
+        <label
+          htmlFor="my-drawer-2"
+          className=" drawer-button lg:hidden cursor-pointer">
           <svg
             className={`fill-current h-3 w-3 block`}
             viewBox="0 0 20 20"

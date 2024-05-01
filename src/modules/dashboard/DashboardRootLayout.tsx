@@ -11,12 +11,12 @@ function DashboardRootLayout({ children }: Props) {
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
 
-        <div className=" lg:hidden">
+        <div className="lg:hidden">
           <Navbar />
         </div>
 
         {/* Page content */}
-        <div className="drawer-content">{children}</div>
+        <div className="drawer-content pt-10">{children}</div>
 
         {/* Drawer content */}
         <Sidebar />
