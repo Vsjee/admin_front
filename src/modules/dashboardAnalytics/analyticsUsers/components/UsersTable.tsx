@@ -6,12 +6,14 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { useCustomerStore } from '../../../../zustand/customerStore';
 
 interface Props {
   customers: Customer[];
 }
 
 function UsersTable({ customers }: Props) {
+  const updateCustomerState = useCustomerStore((state) => state.updateCustomer);
   const history = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -38,8 +40,9 @@ function UsersTable({ customers }: Props) {
     });
   }, []);
 
-  const customerDetailsNav = (customerId: string) => {
-    history(`/dashboard/analytics_users/${customerId}`);
+  const customerDetailsNav = (customer: Customer) => {
+    updateCustomerState(customer);
+    history(`/dashboard/analytics_users/${customer._id}`);
   };
 
   return (
@@ -134,7 +137,7 @@ function UsersTable({ customers }: Props) {
                 <th>
                   <button
                     className="btn btn-outline btn-primary btn-xs"
-                    onClick={() => customerDetailsNav(customer._id)}>
+                    onClick={() => customerDetailsNav(customer)}>
                     detalle
                   </button>
                 </th>
