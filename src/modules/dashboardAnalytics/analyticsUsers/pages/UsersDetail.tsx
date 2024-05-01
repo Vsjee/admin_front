@@ -6,6 +6,7 @@ import { date_parser_util } from '../../../../utils/date_parser_util';
 import bumii_reading from '../../../../assets/images/home/bumii_reading.jpg';
 import bumii_with_kid from '../../../../assets/images/home/bumii_with_kid.jpg';
 import { useLocation, useNavigate } from 'react-router-dom';
+import UserDetailHeader from '../components/UserDetailHeader';
 
 function UsersDetail() {
   const history = useNavigate();
@@ -36,6 +37,8 @@ function UsersDetail() {
   return (
     <>
       <ToastContainer />
+
+      <UserDetailHeader customer={customer} />
 
       <div className="p-5">
         {/* user info */}
