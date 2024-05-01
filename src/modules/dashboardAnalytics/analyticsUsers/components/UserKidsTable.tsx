@@ -14,9 +14,9 @@ function UserKidsTable({ kids }: Props) {
   const navigate = useNavigate();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const customersPerPage = 4;
-  const indexOfLastCustomer = currentPage * customersPerPage;
-  const indexOfFirstCustomer = indexOfLastCustomer - customersPerPage;
+  const kidsPerPage = 3;
+  const indexOfLastCustomer = currentPage * kidsPerPage;
+  const indexOfFirstCustomer = indexOfLastCustomer - kidsPerPage;
   const currentKids = kids.slice(indexOfFirstCustomer, indexOfLastCustomer);
 
   return kids.length !== 0 ? (
@@ -102,7 +102,7 @@ function UserKidsTable({ kids }: Props) {
         </tbody>
       </table>
       {/* foot */}
-      {kids.length >= 4 ? (
+      {kids.length > 3 ? (
         <div className="join w-full flex justify-center pt-2">
           <button
             className="join-item btn"
@@ -114,9 +114,7 @@ function UserKidsTable({ kids }: Props) {
           <button
             className="join-item btn"
             onClick={() => setCurrentPage(currentPage + 1)}
-            disabled={
-              currentPage === Math.ceil(kids.length / customersPerPage)
-            }>
+            disabled={currentPage === Math.ceil(kids.length / kidsPerPage)}>
             »
           </button>
         </div>
