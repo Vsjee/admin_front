@@ -24,7 +24,7 @@ function UserKidsHeader({ kids, customerId }: Props) {
         <a className="text-xl pl-2"> | Total {kids.length} </a>
       </div>
       <div className="flex-none">
-        <button className="btn  btn-ghost">
+        {/* <button className="btn  btn-ghost">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6 inline-block mr-1"
@@ -39,7 +39,7 @@ function UserKidsHeader({ kids, customerId }: Props) {
             />
           </svg>
           Reporte PDF
-        </button>
+        </button> */}
       </div>
     </div>
   );

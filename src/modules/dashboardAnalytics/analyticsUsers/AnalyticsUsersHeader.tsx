@@ -14,7 +14,7 @@ function AnalyticsUsersHeader({ customers }: Props) {
         </a>
       </div>
       <div className="flex-none">
-        <button className="btn  btn-ghost">
+        {/* <button className="btn  btn-ghost">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-6 w-6 inline-block mr-1"
@@ -29,7 +29,7 @@ function AnalyticsUsersHeader({ customers }: Props) {
             />
           </svg>
           Reporte PDF
-        </button>
+        </button> */}
       </div>
     </div>
   );
