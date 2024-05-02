@@ -17,8 +17,8 @@ function UserKidsSimpleBarChart({ kids }: Props) {
 
     kids.forEach((kid) =>
       kid.gender === 'male'
-        ? (averageMaleAge.push(kid.age), averageMaleAgeLen++)
-        : (averageFemaleAge.push(kid.age), averageFemaleAgeLen++)
+        ? (averageMaleAge.push(kid.years), averageMaleAgeLen++)
+        : (averageFemaleAge.push(kid.years), averageFemaleAgeLen++)
     );
     console.log(averageMaleAge, averageFemaleAge);
 
