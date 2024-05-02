@@ -14,12 +14,4 @@ export const menuRoutes: IMenuRoutes[] = [
     route: `${publicRoutes.ANALYTICS_USERS}`,
     text: 'Analitica Usuarios',
   },
-  {
-    route: `${publicRoutes.ANALYTICS_KIDS}`,
-    text: 'Analitica Niños',
-  },
-  {
-    route: `${publicRoutes.ANALYTICS_BOOKS}`,
-    text: 'Analitica Libros',
-  },
 ];
