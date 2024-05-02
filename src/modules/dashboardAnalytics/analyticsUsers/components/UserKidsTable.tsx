@@ -3,6 +3,8 @@ import { Kid } from '../../../../core/types/kids_types';
 import { date_parser_util } from '../../../../utils/date_parser_util';
 import { useCustomerStore } from '../../../../zustand/customerStore';
 import { useNavigate } from 'react-router-dom';
+import kidsService from '../../../../core/services/kids_service';
+import { ToastContainer, toast } from 'react-toastify';
 
 interface Props {
   kids: Kid[];
@@ -169,153 +171,239 @@ interface PropsModal {
 
 function KidInfoModal({ kid }: PropsModal) {
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [name, setName] = useState<string>('');
+  const [age, setAge] = useState<number>(0);
+  const [gender, setGender] = useState<string>('');
 
   const toggleEditing = () => {
     setIsEditing(!isEditing);
   };
 
+  const handleFormSubmit = (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+
+    console.log({ name, age, gender });
+
+    updateKidById(name, age, gender);
+  };
+
+  const updateKidById = (name: string, age: number, gender: string) => {
+    if (kid.name !== name) kid.name = name;
+    if (kid.years !== age) kid.years = age;
+    if (kid.age !== age) kid.age = age;
+    if (kid.gender !== gender) kid.gender = gender;
+
+    kidsService
+      .updateKidById(kid)
+      .then((response) => {
+        console.log(response);
+        toast.success('Actualizado correctamente', {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+        });
+
+        toggleEditing();
+      })
+      .then((error) => {
+        console.error(error);
+        toast.error('Error al actualizar, intenta nuevamente.', {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+        });
+      });
+  };
+
   return (
-    <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-      <div className="modal-box">
-        {!isEditing ? (
-          <>
-            <div className="flex justify-between">
-              <h3 className="font-bold text-lg">Informacion niño</h3>
-              <div
-                className="swap-on btn btn-xs btn-outline btn-primary  text-white"
-                onClick={toggleEditing}>
-                Editar
-              </div>
-            </div>
-            <div className="py-4">
-              <div className="flex items-center gap-3">
-                <div className="avatar">
-                  <div className="mask mask-circle w-24 h-24">
-                    <img src={kid.avatar} alt={kid.name} />
-                  </div>
-                </div>
-                <div>
-                  <div>Id: {kid._id}</div>
-                  <div>Nombre: {kid.name}</div>
-                  <div>Edad: {kid.years}</div>
-                  <div>
-                    Genero: {kid.gender === 'male' ? 'Masculino' : ' Femenino'}
-                  </div>
-                  <div>
-                    Fecha de creacion: {date_parser_util(kid.creation_date)}
-                  </div>
-                  <div>
-                    Fecha ultima actualizacion:
-                    {date_parser_util(kid.modification_date)}
-                  </div>
-                  <div>
-                    Acepto los T&C:
-                    {kid.t_c && kid.t_c.length !== 0 ? 'Si' : 'No'}
-                  </div>
-                  <span
-                    className={
-                      kid.is_active
-                        ? 'badge badge-outline badge-success btn-xs'
-                        : 'badge badge-outline badge-error btn-xs'
-                    }>
-                    {kid.is_active ? 'Perfil activo' : 'Perfil inactivo'}
-                  </span>
+    <>
+      <ToastContainer />
+
+      <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box">
+          {!isEditing ? (
+            <>
+              <div className="flex justify-between">
+                <h3 className="font-bold text-lg">Informacion niño</h3>
+                <div
+                  className="swap-on btn btn-xs btn-outline btn-primary  text-white"
+                  onClick={toggleEditing}>
+                  Editar
                 </div>
               </div>
-              <div className="flex flex-col gap-5">
-                {kid.family_context && kid.family_context.length !== 0 ? (
-                  <div className="flex flex-col">
-                    <span className="font-bold">Familiares</span>
-                    <div className="flex flex-wrap gap-2">
-                      {kid.family_context.map((context) => (
-                        <label className="badge badge-outline">{context}</label>
-                      ))}
+              <div className="py-4">
+                <div className="flex items-center gap-3">
+                  <div className="avatar">
+                    <div className="mask mask-circle w-24 h-24">
+                      <img src={kid.avatar} alt={kid.name} />
                     </div>
                   </div>
-                ) : null}
+                  <div>
+                    <div>Id: {kid._id}</div>
+                    <div>Nombre: {kid.name}</div>
+                    <div>Edad: {kid.years}</div>
+                    <div>
+                      Genero:{' '}
+                      {kid.gender === 'male' ? 'Masculino' : ' Femenino'}
+                    </div>
+                    <div>
+                      Fecha de creacion:{' '}
+                      {kid.creation_date
+                        ? date_parser_util(kid.creation_date)
+                        : 'Fecha no valida'}
+                    </div>
+                    <div>
+                      Fecha ultima actualizacion:
+                      {kid.creation_date
+                        ? date_parser_util(kid.modification_date)
+                        : 'Fecha no valida'}
+                    </div>
+                    <div>
+                      Acepto los T&C:
+                      {kid.t_c && kid.t_c.length !== 0 ? 'Si' : 'No'}
+                    </div>
+                    <span
+                      className={
+                        kid.is_active
+                          ? 'badge badge-outline badge-success btn-xs'
+                          : 'badge badge-outline badge-error btn-xs'
+                      }>
+                      {kid.is_active ? 'Perfil activo' : 'Perfil inactivo'}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-5">
+                  {kid.family_context && kid.family_context.length !== 0 ? (
+                    <div className="flex flex-col">
+                      <span className="font-bold">Familiares</span>
+                      <div className="flex flex-wrap gap-2">
+                        {kid.family_context.map((context) => (
+                          <label className="badge badge-outline">
+                            {context}
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
 
-                {kid.personal_context && kid.personal_context.length !== 0 ? (
-                  <div className="flex flex-col">
-                    <span className="font-bold">Gustos personales</span>
-                    <div className="flex flex-wrap gap-2">
-                      {kid.personal_context.map((context) => (
-                        <label className="badge badge-outline">{context}</label>
-                      ))}
+                  {kid.personal_context && kid.personal_context.length !== 0 ? (
+                    <div className="flex flex-col">
+                      <span className="font-bold">Gustos personales</span>
+                      <div className="flex flex-wrap gap-2">
+                        {kid.personal_context.map((context) => (
+                          <label className="badge badge-outline">
+                            {context}
+                          </label>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                ) : null}
+                  ) : null}
 
-                {kid.socioemotional_context &&
-                kid.socioemotional_context.length !== 0 ? (
-                  <div className="flex flex-col">
-                    <span className="font-bold">Socioemocional</span>
-                    <div className="flex flex-wrap gap-2">
-                      {kid.socioemotional_context.map((context) => (
-                        <label className="badge badge-outline">{context}</label>
-                      ))}
+                  {kid.socioemotional_context &&
+                  kid.socioemotional_context.length !== 0 ? (
+                    <div className="flex flex-col">
+                      <span className="font-bold">Socioemocional</span>
+                      <div className="flex flex-wrap gap-2">
+                        {kid.socioemotional_context.map((context) => (
+                          <label className="badge badge-outline">
+                            {context}
+                          </label>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                ) : null}
+                  ) : null}
+                </div>
               </div>
-            </div>
-            <div className="modal-action">
-              <form method="dialog">
-                {/* if there is a button in form, it will close the modal */}
-                <button className="btn">Cerrar</button>
-              </form>
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="flex justify-between">
-              <h3 className="font-bold text-lg">Editando</h3>
-              <div
-                className="swap-off btn btn-xs btn-outline btn-error  text-white"
-                onClick={toggleEditing}>
-                Cancelar
+              <div className="modal-action">
+                <form method="dialog">
+                  {/* if there is a button in form, it will close the modal */}
+                  <button
+                    className="btn"
+                    onClick={() => {
+                      window.location.reload();
+                    }}>
+                    Cerrar
+                  </button>
+                </form>
               </div>
-            </div>
-            <div className="p-5">
-              <form className="flex flex-col gap-5">
-                {/* name */}
-                <label className="input input-bordered flex items-center gap-2">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 16 16"
-                    fill="currentColor"
-                    className="w-4 h-4 opacity-70">
-                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
-                  </svg>
-                  <input type="text" className="grow" placeholder="Nombre" />
-                </label>
+            </>
+          ) : (
+            <>
+              <div className="flex justify-between">
+                <h3 className="font-bold text-lg">Editando</h3>
+                <div
+                  className="swap-off btn btn-xs btn-outline btn-error  text-white"
+                  onClick={toggleEditing}>
+                  Cancelar
+                </div>
+              </div>
+              <div className="p-5">
+                <form className="flex flex-col gap-5">
+                  {/* name */}
+                  <label className="input input-bordered flex items-center gap-2">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="currentColor"
+                      className="w-4 h-4 opacity-70">
+                      <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
+                    </svg>
+                    <input
+                      type="text"
+                      className="grow"
+                      placeholder="Nombre"
+                      value={name}
+                      onChange={(event) => setName(event.target.value)}
+                    />
+                  </label>
 
-                {/* age */}
-                <select className="select select-bordered w-full ">
-                  <option disabled selected>
-                    Edad
-                  </option>
-                  <option>Han Solo</option>
-                  <option>Greedo</option>
-                </select>
+                  {/* age */}
+                  <select
+                    className="select select-bordered w-full "
+                    value={age}
+                    onChange={(event) => setAge(Number(event.target.value))}>
+                    <option disabled selected>
+                      Edad
+                    </option>
+                    {[...Array(15).keys()].map((age) => (
+                      <option>{age + 1}</option>
+                    ))}
+                  </select>
 
-                {/* gender */}
-                <select className="select select-bordered w-full ">
-                  <option disabled selected>
-                    Genero
-                  </option>
-                  <option>Masculino</option>
-                  <option>Femenino</option>
-                </select>
+                  {/* gender */}
+                  <select
+                    className="select select-bordered w-full "
+                    value={gender}
+                    onChange={(event) => setGender(event.target.value)}>
+                    <option disabled selected>
+                      Genero
+                    </option>
+                    <option>Masculino</option>
+                    <option>Femenino</option>
+                  </select>
+                </form>
 
-                <button className="btn btn-outline btn-primary">
+                <button
+                  className="btn btn-outline btn-primary"
+                  onClick={handleFormSubmit}>
                   Actualizar
                 </button>
-              </form>
-            </div>
-          </>
-        )}
-      </div>
-    </dialog>
+              </div>
+            </>
+          )}
+        </div>
+      </dialog>
+    </>
   );
 }
 
