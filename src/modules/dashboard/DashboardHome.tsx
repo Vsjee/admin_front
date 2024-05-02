@@ -1,5 +1,11 @@
+import DashboardHeader from './DashboardHeader';
+
 function DashboardHome() {
-  return <div>DashboardHome</div>;
+  return (
+    <>
+      <DashboardHeader />
+    </>
+  );
 }
 
 export default DashboardHome;
