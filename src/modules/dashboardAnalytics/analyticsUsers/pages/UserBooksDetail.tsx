@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import UserBooksTable from '../components/UserBooksTable';
-import booksService from '../../../../core/services/books_types';
+import booksService from '../../../../core/services/books_service';
 import { IBook } from '../../../../core/types/books_types';
 import UserBooksHeader from '../components/UserBooksHeader';
 import UserBooksPieChart from '../charts/UserBooksPieChart';

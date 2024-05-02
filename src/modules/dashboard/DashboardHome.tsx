@@ -7,7 +7,7 @@ import { IBook } from '../../core/types/books_types';
 import { IStory } from '../../core/types/stories_types';
 import customersService from '../../core/services/customers_service';
 import kidsService from '../../core/services/kids_service';
-import booksService from '../../core/services/books_types';
+import booksService from '../../core/services/books_service';
 import storiesService from '../../core/services/stories_service';
 import DashboardCustomersChart from './charts/DashboardCustomersChart';
 import DashboardKidsCharts from './charts/DashboardKidsCharts';
