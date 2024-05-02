@@ -29,9 +29,11 @@ function UserBooksDetail() {
     <>
       <UserBooksHeader books={books} customerId={id!} />
       <UserBooksTable books={books} />
-      <div className="flex justify-center pt-5">
-        <UserBooksPieChart books={books} />
-      </div>
+      {books.length !== 0 ? (
+        <div className="flex justify-center pt-5">
+          <UserBooksPieChart books={books} />
+        </div>
+      ) : null}
     </>
   );
 }
