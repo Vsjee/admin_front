@@ -10,6 +10,7 @@ import kidsService from '../../core/services/kids_service';
 import booksService from '../../core/services/books_types';
 import storiesService from '../../core/services/stories_service';
 import DashboardCustomersChart from './charts/DashboardCustomersChart';
+import DashboardKidsCharts from './charts/DashboardKidsCharts';
 
 function DashboardHome() {
   const [allCustomers, setAllCustomers] = useState<Customer[]>([]);
@@ -79,6 +80,7 @@ function DashboardHome() {
           books={allBooks}
           kids={allKids}
         />
+        <DashboardKidsCharts kids={allKids} />
       </div>
     </>
   );
