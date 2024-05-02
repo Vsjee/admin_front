@@ -170,7 +170,7 @@ function UsedTokens({ stories }: StoriesProps) {
             }
             role="progressbar">
             <h1 className="text-xl text-center">
-              Total Story Tokens
+              Total Image Prompt Tokens
               <br />
               <span className="text-4xl">
                 {stories.reduce(
