@@ -11,6 +11,7 @@ import booksService from '../../core/services/books_types';
 import storiesService from '../../core/services/stories_service';
 import DashboardCustomersChart from './charts/DashboardCustomersChart';
 import DashboardKidsCharts from './charts/DashboardKidsCharts';
+import DashboardBooksCharts from './charts/DashboardBooksCharts';
 
 function DashboardHome() {
   const [allCustomers, setAllCustomers] = useState<Customer[]>([]);
@@ -81,6 +82,7 @@ function DashboardHome() {
           kids={allKids}
         />
         <DashboardKidsCharts kids={allKids} />
+        <DashboardBooksCharts books={allBooks} stories={allStories} />
       </div>
     </>
   );
