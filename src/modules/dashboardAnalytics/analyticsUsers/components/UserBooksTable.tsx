@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { date_parser_util } from '../../../../utils/date_parser_util';
 import { IBook } from '../../../../core/types/books_types';
 import { serverImgStgUrl } from '../../../../config/environment_stg_config';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
+import booksService from '../../../../core/services/books_service';
 
 interface Props {
   books: IBook[];
@@ -220,6 +221,40 @@ function BookActivationModal({ book }: PropsModal) {
 }
 
 function BookDeletionModal({ book }: PropsModal) {
+  const deleteBookById = () => {
+    booksService
+      .deleteBookById(book._id!)
+      .then(() => {
+        toast.success('Libro eliminado correctamente', {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+        });
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error('Error al eliminar, intenta nuevamente.', {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+        });
+      });
+  };
+
   return (
     <>
       <ToastContainer />
@@ -227,7 +262,42 @@ function BookDeletionModal({ book }: PropsModal) {
       <dialog
         id="modal_book_deletion"
         className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box"></div>
+        <div className="modal-box">
+          <div className="p-5 flex flex-col justify-center items-center gap-5">
+            <div className="card w-full  h-64 bg-base-100 shadow-xl image-full">
+              <figure>
+                <img
+                  src={serverImgStgUrl + book.covers?.mini}
+                  alt={book.customer_id}
+                  style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+                />
+              </figure>
+              <div className="card-body grid place-content-center">
+                <h1 className="text-xl text-center">
+                  <br />
+                  <span className="text-4xl">
+                    {book.story_title ?? 'No registra nombre'}
+                  </span>
+                </h1>
+              </div>
+            </div>
+
+            <p className="text-center">
+              Seguro que quieres eliminar este libro? no se podra recuperar
+            </p>
+
+            <div className="flex gap-5">
+              <form>
+                <button className="btn btn-outline btn-ghost">Cancelar</button>
+              </form>
+              <button
+                className="btn btn-error text-white"
+                onClick={deleteBookById}>
+                Eliminar
+              </button>
+            </div>
+          </div>
+        </div>
       </dialog>
     </>
   );
