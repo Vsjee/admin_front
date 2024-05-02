@@ -3,6 +3,7 @@ import bumii_with_kid from '../../../assets/images/home/bumii_with_kid.jpg';
 import { IBook } from '../../../core/types/books_types';
 import { Customer } from '../../../core/types/customers_types';
 import { Kid } from '../../../core/types/kids_types';
+import '../styles/radial_progress.css';
 
 interface Props {
   customers: Customer[];
@@ -29,9 +30,10 @@ function DashboardCustomersChart({ customers, books, kids }: Props) {
               className="radial-progress text-primary"
               style={
                 {
-                  '--value': '70',
                   '--size': '12rem',
                   '--thickness': '15px',
+                  animation:
+                    'load 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards',
                 } as React.CSSProperties
               }
               role="progressbar">
@@ -55,9 +57,10 @@ function DashboardCustomersChart({ customers, books, kids }: Props) {
               className="radial-progress text-accent"
               style={
                 {
-                  '--value': '60',
                   '--size': '12rem',
                   '--thickness': '15px',
+                  animation:
+                    'load 2s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards',
                 } as React.CSSProperties
               }
               role="progressbar">
@@ -81,9 +84,10 @@ function DashboardCustomersChart({ customers, books, kids }: Props) {
               className="radial-progress text-primary"
               style={
                 {
-                  '--value': '50',
                   '--size': '12rem',
                   '--thickness': '15px',
+                  animation:
+                    'load 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards',
                 } as React.CSSProperties
               }
               role="progressbar">
