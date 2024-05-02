@@ -17,3 +17,8 @@ export interface IBook {
     mini?: string;
   };
 }
+
+export interface BookDeletion {
+  message: string;
+  status: number;
+}

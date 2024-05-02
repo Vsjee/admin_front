@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { serverStgUrl } from '../../config/environment_stg_config';
-import { IBook } from '../types/books_types';
+import { BookDeletion, IBook } from '../types/books_types';
 
 class BooksService {
   // [GET]
@@ -15,9 +15,9 @@ class BooksService {
   }
 
   // [DELETE]
-  deleteBookById(bookId: string): Promise<AxiosResponse<IBook>> {
+  deleteBookById(bookId: string): Promise<AxiosResponse<BookDeletion>> {
     axios.defaults.baseURL = `${serverStgUrl}/books/delete/${bookId}`;
-    return axios.delete<IBook>('');
+    return axios.delete<BookDeletion>('');
   }
 
   // [PATCH]
