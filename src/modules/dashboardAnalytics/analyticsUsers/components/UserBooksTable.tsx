@@ -108,12 +108,24 @@ function UserBooksTable({ books }: Props) {
                 <th>
                   <span
                     className={
+                      book.is_story_approved
+                        ? 'badge badge-outline badge-success  btn-xs'
+                        : 'badge badge-outline badge-error  btn-xs'
+                    }>
+                    {book.is_story_approved
+                      ? 'Libro Aprobado'
+                      : 'Libro Sin Aprobar'}
+                  </span>
+                </th>
+                <th>
+                  <span
+                    className={
                       book.is_active
                         ? 'btn btn-outline btn-success  btn-xs'
                         : 'btn btn-outline btn-error  btn-xs'
                     }
                     onClick={() => openBookActivationModal(book)}>
-                    {book.is_active ? 'Aprobado' : 'No aprobado'}
+                    {book.is_active ? 'Libro Activo' : 'Libro Sin Activar'}
                   </span>
                 </th>
                 <th>
