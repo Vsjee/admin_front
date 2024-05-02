@@ -39,12 +39,14 @@ class KidsService {
   // [PATCH]
   updateKidById(kid: Kid): Promise<AxiosResponse<Kid>> {
     axios.defaults.baseURL = `${serverStgUrl}/kids/patch/${kid._id}`;
+    kid.modification_date = Date.now();
     return axios.patch<Kid>('', kid);
   }
 
   // [PATCH]
   updateActivateOrDeactivateKid(kid: Kid): Promise<AxiosResponse<Kid>> {
     axios.defaults.baseURL = `${serverStgUrl}/kids/patch/activation/${kid._id}`;
+    kid.modification_date = Date.now();
     return axios.patch<Kid>('', kid);
   }
 }
