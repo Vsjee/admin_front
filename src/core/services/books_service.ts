@@ -23,7 +23,8 @@ class BooksService {
   // [PATCH]
   updateBookById(book: IBook): Promise<AxiosResponse<IBook>> {
     axios.defaults.baseURL = `${serverStgUrl}/books/patch/${book._id}`;
-    return axios.patch<IBook>('', { data: book });
+    book.modification_date = Date.now();
+    return axios.patch<IBook>('', book);
   }
 }
 
