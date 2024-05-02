@@ -41,6 +41,12 @@ class KidsService {
     axios.defaults.baseURL = `${serverStgUrl}/kids/patch/${kid._id}`;
     return axios.patch<Kid>('', kid);
   }
+
+  // [PATCH]
+  updateActivateOrDeactivateKid(kid: Kid): Promise<AxiosResponse<Kid>> {
+    axios.defaults.baseURL = `${serverStgUrl}/kids/patch/activation/${kid._id}`;
+    return axios.patch<Kid>('', kid);
+  }
 }
 
 const kidsService = new KidsService();

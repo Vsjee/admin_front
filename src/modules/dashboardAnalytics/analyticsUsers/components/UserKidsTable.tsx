@@ -5,6 +5,7 @@ import { useCustomerStore } from '../../../../zustand/customerStore';
 import { useNavigate } from 'react-router-dom';
 import kidsService from '../../../../core/services/kids_service';
 import { ToastContainer, toast } from 'react-toastify';
+import { time } from 'echarts';
 
 interface Props {
   kids: Kid[];
@@ -26,12 +27,23 @@ function UserKidsTable({ kids }: Props) {
   const openKidInfoModal = (kid: Kid) => {
     setSelectedKid(kid);
 
-    (document.getElementById('my_modal_5') as HTMLDialogElement).showModal();
+    (
+      document.getElementById('modal_kid_info') as HTMLDialogElement
+    ).showModal();
+  };
+
+  const openKidActivationModal = (kid: Kid) => {
+    setSelectedKid(kid);
+
+    (
+      document.getElementById('modal_kid_activation') as HTMLDialogElement
+    ).showModal();
   };
 
   return kids.length !== 0 ? (
     <>
       <KidInfoModal kid={selectedKid} />
+      <KidActivationModal kid={selectedKid} />
 
       <div className="overflow-x-auto">
         <table className="table">
@@ -89,9 +101,10 @@ function UserKidsTable({ kids }: Props) {
                   <span
                     className={
                       kid.is_active
-                        ? 'badge badge-outline badge-success btn-xs'
-                        : 'badge badge-outline badge-error btn-xs'
-                    }>
+                        ? 'btn btn-outline btn-success  btn-xs'
+                        : 'btn btn-outline btn-error  btn-xs'
+                    }
+                    onClick={() => openKidActivationModal(kid)}>
                     {kid.is_active ? 'Perfil activo' : 'Perfil inactivo'}
                   </span>
                 </th>
@@ -229,7 +242,9 @@ function KidInfoModal({ kid }: PropsModal) {
     <>
       <ToastContainer />
 
-      <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+      <dialog
+        id="modal_kid_info"
+        className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           {!isEditing ? (
             <>
@@ -400,6 +415,96 @@ function KidInfoModal({ kid }: PropsModal) {
                 </button>
               </div>
             </>
+          )}
+        </div>
+      </dialog>
+    </>
+  );
+}
+
+function KidActivationModal({ kid }: PropsModal) {
+  const activateOrDeactivateKid = () => {
+    if (kid.is_active) {
+      kid.is_active = false;
+    } else {
+      kid.is_active = true;
+    }
+    console.log(kid);
+
+    kidsService
+      .updateActivateOrDeactivateKid(kid)
+      .then((response) => {
+        console.log(response);
+        toast.success('Actualizado correctamente', {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+        });
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error('Error al actualizar, intenta nuevamente.', {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+        });
+      });
+  };
+
+  return (
+    <>
+      <ToastContainer />
+
+      <dialog
+        id="modal_kid_activation"
+        className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box">
+          {kid.is_active ? (
+            <div className="p-5 flex flex-col justify-center items-center gap-5">
+              <h3 className="font-bold text-lg">
+                {kid.name ?? 'No registra nombre'}
+              </h3>
+              <div className="avatar">
+                <div className="mask mask-hexagon w-40 h-40">
+                  <img src={kid.avatar} alt={kid.name} />
+                </div>
+              </div>
+              <button
+                className="btn btn-outline btn-error"
+                onClick={activateOrDeactivateKid}>
+                Desactivar
+              </button>
+            </div>
+          ) : (
+            <div className="p-5 flex flex-col justify-center items-center gap-5">
+              <h3 className="font-bold text-lg">
+                {kid.name ?? 'No registra nombre'}
+              </h3>
+              <div className="avatar">
+                <div className="mask mask-hexagon w-40 h-40">
+                  <img src={kid.avatar} alt={kid.name} />
+                </div>
+              </div>
+              <button
+                className="btn btn-outline btn-success"
+                onClick={activateOrDeactivateKid}>
+                Activar
+              </button>
+            </div>
           )}
         </div>
       </dialog>
