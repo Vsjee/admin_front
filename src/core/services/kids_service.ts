@@ -38,8 +38,10 @@ class KidsService {
 
   // [PATCH]
   updateKidById(kid: Kid): Promise<AxiosResponse<Kid>> {
+    console.log(kid);
+
     axios.defaults.baseURL = `${serverStgUrl}/kids/patch/${kid._id}`;
-    return axios.patch<Kid>('', { data: kid });
+    return axios.patch<Kid>('', kid);
   }
 }
 
