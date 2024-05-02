@@ -5,7 +5,6 @@ import { useCustomerStore } from '../../../../zustand/customerStore';
 import { useNavigate } from 'react-router-dom';
 import kidsService from '../../../../core/services/kids_service';
 import { ToastContainer, toast } from 'react-toastify';
-import { time } from 'echarts';
 
 interface Props {
   kids: Kid[];
@@ -40,10 +39,19 @@ function UserKidsTable({ kids }: Props) {
     ).showModal();
   };
 
+  const openKidDeletionModal = (kid: Kid) => {
+    setSelectedKid(kid);
+
+    (
+      document.getElementById('modal_kid_deletion') as HTMLDialogElement
+    ).showModal();
+  };
+
   return kids.length !== 0 ? (
     <>
       <KidInfoModal kid={selectedKid} />
       <KidActivationModal kid={selectedKid} />
+      <KidDeletionModal kid={selectedKid} />
 
       <div className="overflow-x-auto">
         <table className="table">
@@ -109,7 +117,9 @@ function UserKidsTable({ kids }: Props) {
                   </span>
                 </th>
                 <th>
-                  <button className="btn btn-square btn-outline btn-xs btn-error">
+                  <button
+                    className="btn btn-square btn-outline btn-xs btn-error"
+                    onClick={() => openKidDeletionModal(kid)}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-6 w-6"
@@ -437,8 +447,7 @@ function KidActivationModal({ kid }: PropsModal) {
 
     kidsService
       .updateActivateOrDeactivateKid(kid)
-      .then((response) => {
-        console.log(response);
+      .then(() => {
         toast.success('Actualizado correctamente', {
           position: 'top-right',
           autoClose: 2000,
@@ -510,6 +519,80 @@ function KidActivationModal({ kid }: PropsModal) {
               </button>
             </div>
           )}
+        </div>
+      </dialog>
+    </>
+  );
+}
+
+function KidDeletionModal({ kid }: PropsModal) {
+  const deleteKidById = () => {
+    kidsService
+      .deleteKidById(kid._id)
+      .then(() => {
+        toast.success('Perfil eliminado correctamente', {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+        });
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error('Error al eliminar, intenta nuevamente.', {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+        });
+      });
+  };
+
+  return (
+    <>
+      <ToastContainer />
+
+      <dialog
+        id="modal_kid_deletion"
+        className="modal modal-bottom sm:modal-middle">
+        <div className="modal-box">
+          <div className="p-5 flex flex-col justify-center items-center gap-5">
+            <h3 className="font-bold text-lg">
+              {kid.name ?? 'No registra nombre'}
+            </h3>
+            <div className="avatar">
+              <div className="mask mask-hexagon w-40 h-40">
+                <img src={kid.avatar} alt={kid.name} />
+              </div>
+            </div>
+
+            <p className="text-center">
+              Seguro que quieres eliminar este perfil? no se podra recuperar
+            </p>
+
+            <div className="flex gap-5">
+              <form>
+                <button className="btn btn-outline btn-ghost">Cancelar</button>
+              </form>
+              <button
+                className="btn btn-error text-white"
+                onClick={deleteKidById}>
+                Eliminar
+              </button>
+            </div>
+          </div>
         </div>
       </dialog>
     </>
