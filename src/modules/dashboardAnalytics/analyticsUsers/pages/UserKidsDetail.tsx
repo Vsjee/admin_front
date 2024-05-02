@@ -29,13 +29,19 @@ function UserKidsDetail() {
   return (
     <>
       <UserKidsHeader kids={kids} customerId={id!} />
-      <UserKidsTable kids={kids} />
-      {kids.length !== 0 ? (
-        <div className="flex justify-center pt-5">
-          <UserKidsPieChart kids={kids} />
-          <UserKidsSimpleBarChart kids={kids} />
-        </div>
-      ) : null}
+      <div
+        className="p-5"
+        style={{ overflowY: 'auto', maxHeight: 'calc(100vh - 85px)' }}>
+        <UserKidsTable kids={kids} />
+        {kids.length !== 0 ? (
+          <div
+            className="flex justify-center pt-5"
+            style={{ overflowY: 'auto', maxHeight: 'calc(100vh - 85px)' }}>
+            <UserKidsPieChart kids={kids} />
+            <UserKidsSimpleBarChart kids={kids} />
+          </div>
+        ) : null}
+      </div>
     </>
   );
 }

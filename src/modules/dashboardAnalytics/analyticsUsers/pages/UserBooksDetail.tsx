@@ -28,12 +28,17 @@ function UserBooksDetail() {
   return (
     <>
       <UserBooksHeader books={books} customerId={id!} />
-      <UserBooksTable books={books} />
-      {books.length !== 0 ? (
-        <div className="flex justify-center pt-5">
-          <UserBooksPieChart books={books} />
-        </div>
-      ) : null}
+      <div
+        className="p-5"
+        style={{ overflowY: 'auto', maxHeight: 'calc(100vh - 85px)' }}>
+        <UserBooksTable books={books} />
+
+        {books.length !== 0 ? (
+          <div className="flex justify-center pt-5">
+            <UserBooksPieChart books={books} />
+          </div>
+        ) : null}
+      </div>
     </>
   );
 }

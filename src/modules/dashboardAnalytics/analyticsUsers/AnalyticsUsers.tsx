@@ -25,7 +25,11 @@ function AnalyticsUsers() {
   return (
     <>
       <AnalyticsUsersHeader customers={customers} />
-      <UsersTable customers={customers} />
+      <div
+        className="p-5"
+        style={{ overflowY: 'auto', maxHeight: 'calc(100vh - 85px)' }}>
+        <UsersTable customers={customers} />
+      </div>
     </>
   );
 }

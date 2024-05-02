@@ -40,7 +40,9 @@ function UsersDetail() {
 
       <UserDetailHeader customer={customer} />
 
-      <div className="p-5">
+      <div
+        className="p-5"
+        style={{ overflowY: 'auto', maxHeight: 'calc(100vh - 85px)' }}>
         {/* user info */}
         <div className="card lg:card-side bg-base-100 shadow-xl">
           <div className="avatar">
