@@ -23,7 +23,7 @@ class StoriesService {
   // [PATCH]
   updateStorieById(story: IStory): Promise<AxiosResponse<IStory>> {
     axios.defaults.baseURL = `${serverStgUrl}/stories/patch/${story._id}`;
-    return axios.patch<IStory>('', { data: story });
+    return axios.patch<IStory>('', story);
   }
 }
 

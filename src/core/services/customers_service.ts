@@ -22,8 +22,7 @@ class CustomersService {
   // [POST]
   createCustomer(customer: Customer): Promise<AxiosResponse<Customer>> {
     axios.defaults.baseURL = `${serverStgUrl}/customers/post`;
-    // axios.defaults.headers.post['Content-Type'] = 'application/json';
-    return axios.post<Customer>('', { data: customer });
+    return axios.post<Customer>('', customer);
   }
 
   // [DELETE]
