@@ -185,8 +185,8 @@ interface PropsModal {
 function KidInfoModal({ kid }: PropsModal) {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [name, setName] = useState<string>('');
-  const [age, setAge] = useState<number>(0);
-  const [gender, setGender] = useState<string>('');
+  const [age, setAge] = useState<string>('Edad');
+  const [gender, setGender] = useState<string>('Genero');
 
   const toggleEditing = () => {
     setIsEditing(!isEditing);
@@ -195,15 +195,13 @@ function KidInfoModal({ kid }: PropsModal) {
   const handleFormSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
 
-    console.log({ name, age, gender });
-
     updateKidById(name, age, gender);
   };
 
-  const updateKidById = (name: string, age: number, gender: string) => {
+  const updateKidById = (name: string, age: string, gender: string) => {
     if (kid.name !== name) kid.name = name;
-    if (kid.years !== age) kid.years = age;
-    if (kid.age !== age) kid.age = age;
+    if (kid.years !== parseInt(age)) kid.years = parseInt(age);
+    if (kid.age !== parseInt(age)) kid.age = parseInt(age);
     if (kid.gender !== gender) kid.gender = gender;
 
     kidsService
@@ -223,7 +221,7 @@ function KidInfoModal({ kid }: PropsModal) {
 
         toggleEditing();
       })
-      .then((error) => {
+      .catch((error) => {
         console.error(error);
         toast.error('Error al actualizar, intenta nuevamente.', {
           position: 'top-right',
@@ -362,8 +360,8 @@ function KidInfoModal({ kid }: PropsModal) {
                   Cancelar
                 </div>
               </div>
-              <div className="p-5">
-                <form className="flex flex-col gap-5">
+              <div className="p-5 grid gap-5">
+                <form className="flex flex-col  gap-5">
                   {/* name */}
                   <label className="input input-bordered flex items-center gap-2">
                     <svg
@@ -386,12 +384,12 @@ function KidInfoModal({ kid }: PropsModal) {
                   <select
                     className="select select-bordered w-full "
                     value={age}
-                    onChange={(event) => setAge(Number(event.target.value))}>
+                    onChange={(event) => setAge(event.target.value)}>
                     <option disabled selected>
                       Edad
                     </option>
                     {[...Array(15).keys()].map((age) => (
-                      <option>{age + 1}</option>
+                      <option>{String(age + 1)}</option>
                     ))}
                   </select>
 
@@ -408,11 +406,17 @@ function KidInfoModal({ kid }: PropsModal) {
                   </select>
                 </form>
 
-                <button
-                  className="btn btn-outline btn-primary"
-                  onClick={handleFormSubmit}>
-                  Actualizar
-                </button>
+                {name !== '' && age !== 'Edad' && gender != 'Genero' ? (
+                  <button
+                    className="btn btn-outline btn-primary"
+                    onClick={handleFormSubmit}>
+                    Actualizar
+                  </button>
+                ) : (
+                  <button className="btn btn-outline btn-primary" disabled>
+                    Actualizar
+                  </button>
+                )}
               </div>
             </>
           )}
