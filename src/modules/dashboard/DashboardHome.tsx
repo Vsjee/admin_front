@@ -71,7 +71,9 @@ function DashboardHome() {
   return (
     <>
       <DashboardHeader />
-      <div className="p-5">
+      <div
+        className="p-5"
+        style={{ overflowY: 'auto', maxHeight: 'calc(100vh - 85px)' }}>
         <DashboardCustomersChart
           customers={allCustomers}
           books={allBooks}
