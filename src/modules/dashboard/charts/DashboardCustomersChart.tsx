@@ -25,7 +25,7 @@ function DashboardCustomersChart({ customers, books, kids }: Props) {
               style={{ objectFit: 'cover', width: '100%', height: '100%' }}
             />
           </figure>
-          <div className="card-body">
+          <div className="card-body grid place-content-center">
             <div
               className="radial-progress text-primary"
               style={
@@ -52,7 +52,7 @@ function DashboardCustomersChart({ customers, books, kids }: Props) {
               style={{ objectFit: 'cover', width: '100%', height: '100%' }}
             />
           </figure>
-          <div className="card-body">
+          <div className="card-body grid place-content-center">
             <div
               className="radial-progress text-accent"
               style={
@@ -79,7 +79,7 @@ function DashboardCustomersChart({ customers, books, kids }: Props) {
               style={{ objectFit: 'cover', width: '100%', height: '100%' }}
             />
           </figure>
-          <div className="card-body">
+          <div className="card-body grid place-content-center">
             <div
               className="radial-progress text-primary"
               style={
