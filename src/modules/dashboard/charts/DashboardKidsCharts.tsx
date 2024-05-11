@@ -112,7 +112,6 @@ function AgeAverageKidsPieChart({ kids }: Props) {
         ? (averageMaleAge.push(kid.years), averageMaleAgeLen++)
         : (averageFemaleAge.push(kid.years), averageFemaleAgeLen++)
     );
-    console.log(averageMaleAge, averageFemaleAge);
 
     const maleAverage =
       averageMaleAge.reduce((acc, curr) => acc + curr, 0) / averageMaleAgeLen;

@@ -224,7 +224,6 @@ function BookInfoModal({ book }: PropsModal) {
     booksService
       .updateBookById(book)
       .then((response) => {
-        console.log(response);
         toast.success('Actualizado correctamente', {
           position: 'top-right',
           autoClose: 2000,

@@ -217,7 +217,6 @@ function KidInfoModal({ kid }: PropsModal) {
     kidsService
       .updateKidById(kid)
       .then((response) => {
-        console.log(response);
         toast.success('Actualizado correctamente', {
           position: 'top-right',
           autoClose: 2000,
@@ -443,7 +442,6 @@ function KidActivationModal({ kid }: PropsModal) {
     } else {
       kid.is_active = true;
     }
-    console.log(kid);
 
     kidsService
       .updateActivateOrDeactivateKid(kid)
