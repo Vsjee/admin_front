@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import { Navbar } from '../../components';
 import Sidebar from './components/Sidebar';
@@ -11,8 +11,20 @@ import AnalyticsUsers from '../dashboardAnalytics/analyticsUsers/AnalyticsUsers'
 import UsersDetail from '../dashboardAnalytics/analyticsUsers/pages/UsersDetail';
 import UserKidsDetail from '../dashboardAnalytics/analyticsUsers/pages/UserKidsDetail';
 import UserBooksDetail from '../dashboardAnalytics/analyticsUsers/pages/UserBooksDetail';
+import { useEffect } from 'react';
+import { useAuthStore } from '../../zustand/authStore';
 
 function DashboardRootLayout() {
+  const navigate = useNavigate();
+
+  const getAuth = useAuthStore((state) => state.auth);
+
+  useEffect(() => {
+    if (!getAuth) {
+      navigate('/');
+    }
+  }, []);
+
   return (
     <>
       <div className="drawer lg:drawer-open">

@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './login_styles.css';
 import { useNavigate } from 'react-router-dom';
 import adminService from '../../core/services/admin_service';
 import { ToastContainer, toast } from 'react-toastify';
+import { useAuthStore } from '../../zustand/authStore';
 
 function Login() {
   const navigate = useNavigate();
@@ -10,6 +11,11 @@ function Login() {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [password, setPassword] = useState<string>('');
   const [userName, setUserName] = useState<string>('');
+
+  const [getAuth, updateAuthState] = useAuthStore((state) => [
+    state.auth,
+    state.updateAuth,
+  ]);
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -22,7 +28,6 @@ function Login() {
     adminService
       .getAdminAuth(userName, password)
       .then((response) => {
-        console.log(response);
         if (response.data.authorized) {
           toast.success('Inicio sesion exitoso!', {
             position: 'top-right',
@@ -34,6 +39,8 @@ function Login() {
             progress: undefined,
             theme: 'dark',
           });
+
+          updateAuthState(response.data.authorized);
 
           setTimeout(() => {
             navigate('/dashboard');
@@ -49,12 +56,21 @@ function Login() {
             progress: undefined,
             theme: 'dark',
           });
+
+          updateAuthState(response.data.authorized);
         }
       })
       .catch((error) => {
+        updateAuthState(false);
         console.error(error);
       });
   };
+
+  useEffect(() => {
+    if (getAuth) {
+      navigate('/dashboard');
+    }
+  }, []);
 
   return (
     <>
