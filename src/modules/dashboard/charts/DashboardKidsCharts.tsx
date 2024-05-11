@@ -120,7 +120,7 @@ function AgeAverageKidsPieChart({ kids }: Props) {
       averageFemaleAge.reduce((acc, curr) => acc + curr, 0) /
       averageFemaleAgeLen;
 
-    return [maleAverage, femaleAverage];
+    return [maleAverage.toFixed(0), femaleAverage.toFixed(0)];
   };
 
   useEffect(() => {
