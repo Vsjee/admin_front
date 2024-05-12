@@ -2,6 +2,8 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { menuRoutes } from '../../../core/models';
 import { useAuthStore } from '../../../zustand/authStore';
 import { ToastContainer, toast } from 'react-toastify';
+import { userIdKey } from '../../../core/models/localstorage_model';
+import { removeLocalStorage } from '../../../utils/localstorage_util';
 
 function Sidebar() {
   const history = useNavigate();
@@ -10,6 +12,7 @@ function Sidebar() {
 
   const handleLogout = () => {
     updateAuthState(false);
+    removeLocalStorage(userIdKey);
 
     toast.success('Sesion cerrada exitosamente!', {
       position: 'top-right',

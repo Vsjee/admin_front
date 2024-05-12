@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import adminService from '../../core/services/admin_service';
 import { ToastContainer, toast } from 'react-toastify';
 import { useAuthStore } from '../../zustand/authStore';
+import { setLocalStorage } from '../../utils/localstorage_util';
+import { userIdKey } from '../../core/models/localstorage_model';
 
 function Login() {
   const navigate = useNavigate();
@@ -22,9 +24,6 @@ function Login() {
   };
 
   const validateLogin = async () => {
-    console.log('userName:', userName);
-    console.log('password:', password);
-
     adminService
       .getAdminAuth(userName, password)
       .then((response) => {
@@ -41,6 +40,7 @@ function Login() {
           });
 
           updateAuthState(response.data.authorized);
+          setLocalStorage(userIdKey, response.data.userId);
 
           setTimeout(() => {
             navigate('/dashboard');
@@ -58,6 +58,7 @@ function Login() {
           });
 
           updateAuthState(response.data.authorized);
+          setLocalStorage(userIdKey, response.data.userId);
         }
       })
       .catch((error) => {
