@@ -416,6 +416,42 @@ function BookInfoModal({ book }: PropsModal) {
 }
 
 function BookActivationModal({ book }: PropsModal) {
+  const activateOrDeactivateBook = () => {
+    booksService
+      .updateBookStatus(book)
+      .then((res) => {
+        console.log(res);
+
+        toast.success('Actualizado correctamente', {
+          position: 'top-right',
+          autoClose: 800,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+        });
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.error('Error al actualizar, intenta nuevamente.', {
+          position: 'top-right',
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'dark',
+        });
+      });
+  };
+
   return (
     <>
       <ToastContainer />
@@ -423,7 +459,38 @@ function BookActivationModal({ book }: PropsModal) {
       <dialog
         id="modal_book_activation"
         className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box"></div>
+        <div className="modal-box">
+          <div className="p-5 flex flex-col justify-center items-center gap-5">
+            <div className="card w-full  h-64 bg-base-100 shadow-xl image-full">
+              <figure>
+                <img
+                  src={serverImgStgUrl + book.covers?.mini}
+                  alt={book.customer_id}
+                  style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+                />
+              </figure>
+              <div className="card-body grid place-content-center">
+                <h1 className="text-xl text-center">
+                  <br />
+                  <span className="flex gap-5">
+                    <form>
+                      <button className="btn btn-outline">Cancelar</button>
+                    </form>
+                    <button
+                      className={
+                        book.is_active
+                          ? 'btn btn-error text-white'
+                          : 'btn btn-success text-white'
+                      }
+                      onClick={activateOrDeactivateBook}>
+                      {book.is_active ? 'Desactivar libro' : 'Activar libro'}
+                    </button>
+                  </span>
+                </h1>
+              </div>
+            </div>
+          </div>
+        </div>
       </dialog>
     </>
   );

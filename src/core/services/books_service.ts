@@ -26,6 +26,11 @@ class BooksService {
     book.modification_date = Date.now();
     return axios.patch<IBook>('', book);
   }
+
+  updateBookStatus(book: IBook): Promise<AxiosResponse<IBook>> {
+    axios.defaults.baseURL = `${serverStgUrl}/books/patch-status/${book._id}`;
+    return axios.patch<IBook>('', book);
+  }
 }
 
 const booksService = new BooksService();
