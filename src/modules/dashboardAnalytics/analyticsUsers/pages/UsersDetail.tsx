@@ -128,14 +128,14 @@ function UsersDetail() {
 
             {/* user is active  */}
             <div className="">
-              <button
+              <span
                 className={
                   customer.isActive
-                    ? 'btn btn-outline btn-xs btn-success '
-                    : 'btn btn-outline btn-xs btn-error'
+                    ? 'badge badge-outline badge-success '
+                    : 'badge badge-outline badge-error'
                 }>
                 {customer.isActive ? 'Cuenta activa' : 'Cuenta inactiva'}
-              </button>
+              </span>
             </div>
 
             {/* user delete */}
