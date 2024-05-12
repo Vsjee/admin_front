@@ -7,6 +7,7 @@ import bumii_reading from '../../../../assets/images/home/bumii_reading.jpg';
 import bumii_with_kid from '../../../../assets/images/home/bumii_with_kid.jpg';
 import { useLocation, useNavigate } from 'react-router-dom';
 import UserDetailHeader from '../components/UserDetailHeader';
+import { DeleteCustomerModal } from '../components/DeleteCustomerModal';
 
 function UsersDetail() {
   const history = useNavigate();
@@ -34,9 +35,17 @@ function UsersDetail() {
     history(newPath);
   };
 
+  const openCustomerDeletionModal = () => {
+    (
+      document.getElementById('delete_customer_modal') as HTMLDialogElement
+    ).showModal();
+  };
+
   return (
     <>
       <ToastContainer />
+
+      <DeleteCustomerModal customer={customer} />
 
       <UserDetailHeader customer={customer} />
 
@@ -140,7 +149,9 @@ function UsersDetail() {
 
             {/* user delete */}
             <div className="card-actions justify-end">
-              <button className="btn btn-outline btn-xs btn-error">
+              <button
+                className="btn btn-outline btn-xs btn-error"
+                onClick={openCustomerDeletionModal}>
                 Eliminar
               </button>
             </div>

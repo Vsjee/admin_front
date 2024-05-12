@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useCustomerStore } from '../../../../zustand/customerStore';
+import { DeleteCustomerModal } from './DeleteCustomerModal';
 
 interface Props {
   customers: Customer[];
@@ -15,6 +16,10 @@ interface Props {
 function UsersTable({ customers }: Props) {
   const updateCustomerState = useCustomerStore((state) => state.updateCustomer);
   const history = useNavigate();
+
+  const [selectedCustomer, setSelectedCustomer] = useState<Customer>(
+    {} as Customer
+  );
 
   const [currentPage, setCurrentPage] = useState(1);
   const customersPerPage = 10;
@@ -45,9 +50,17 @@ function UsersTable({ customers }: Props) {
     history(`/dashboard/analytics_users/${customer._id}`);
   };
 
+  const openCustomerDeletionModal = () => {
+    (
+      document.getElementById('delete_customer_modal') as HTMLDialogElement
+    ).showModal();
+  };
+
   return (
     <>
       <ToastContainer />
+
+      <DeleteCustomerModal customer={selectedCustomer} />
 
       <div className="overflow-x-auto">
         <table className="table">
@@ -142,7 +155,12 @@ function UsersTable({ customers }: Props) {
                   </button>
                 </th>
                 <th>
-                  <button className="btn btn-square btn-outline btn-xs btn-error">
+                  <button
+                    className="btn btn-square btn-outline btn-xs btn-error"
+                    onClick={() => {
+                      setSelectedCustomer(customer);
+                      openCustomerDeletionModal();
+                    }}>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-6 w-6"
