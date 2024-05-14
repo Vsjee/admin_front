@@ -48,7 +48,7 @@ function BooksAprovationPercentagePieChart({ books }: BooksProps) {
       },
       {
         value: disaprovedCount,
-        name: 'Lirbos Sin aprobar',
+        name: 'Libros Sin aprobar',
       },
     ];
   };

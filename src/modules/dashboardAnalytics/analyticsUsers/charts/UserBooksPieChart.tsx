@@ -24,7 +24,7 @@ function UserBooksPieChart({ books }: Props) {
       },
       {
         value: disaprovedCount,
-        name: 'Lirbos Sin aprobar',
+        name: 'Libros Sin aprobar',
       },
     ];
   };
